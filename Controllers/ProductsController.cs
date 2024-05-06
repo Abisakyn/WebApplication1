@@ -1,16 +1,25 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using HSport.App.Model;
 
-namespace WebApplication1.Controllers
+namespace HSport.App.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        [HttpGet]
-        public string GetProducts()
+        private readonly ShopContext _context;
+
+        public ProductsController (ShopContext context)
         {
-            return "Ok";
+            _context = context;
+
+            _context.Database.EnsureCreated();
+        }
+        [HttpGet]
+        public IEnumerable<Product> GetAllProducts()
+        {
+            return _context.Products.ToArray();
         }
     }
 }
