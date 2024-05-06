@@ -10,16 +10,25 @@ namespace HSport.App.Controllers
     {
         private readonly ShopContext _context;
 
-        public ProductsController (ShopContext context)
+        public ProductsController(ShopContext context)
         {
             _context = context;
 
             _context.Database.EnsureCreated();
         }
         [HttpGet]
-        public IEnumerable<Product> GetAllProducts()
+        public ActionResult GetAllProducts()
         {
-            return _context.Products.ToArray();
+            return Ok(_context.Products.ToArray());
+        }
+        [HttpGet("{id}")]
+        public ActionResult GetProducts(int id)
+        {
+            var product = _context.Products.Find(id);
+
+            return Ok(product);
+
+
         }
     }
 }
