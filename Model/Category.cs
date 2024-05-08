@@ -1,4 +1,5 @@
 ﻿namespace HSport.App.Model
+#nullable disable
 {
     public class Category
     {
